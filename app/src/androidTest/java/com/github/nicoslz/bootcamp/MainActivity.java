@@ -9,17 +9,20 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.espresso.intent.Intents;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.ActivityTestRule;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class GreetingActivity extends AppCompatActivity {
+@RunWith(AndroidJUnit4.class)
+public class MainActivity extends AppCompatActivity {
+    @Rule
+    public ActivityScenarioRule<MainActivity> testRule = new ActivityScenarioRule<>(MainActivity.class);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_greeting);
-    }
-
+    //Use onView to perform click on the button
     @Test
     public void goToGreetingActivity() {
         onView(withId(R.id.mainButton)).perform(click());
@@ -28,4 +31,6 @@ public class GreetingActivity extends AppCompatActivity {
         Intents.intended(hasComponent(GreetingActivity.class.getName()));
         Intents.release();
     }
+
 }
+
